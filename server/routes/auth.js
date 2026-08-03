@@ -17,6 +17,15 @@ const users = {
     'anggota@pramuka.id': { password: 'anggota123', role: 'Anggota', name: 'Anggota Penegak' }
 };
 
+// Add demo admin from environment or default for quick testing (development only).
+// If ADMIN_USER/ADMIN_PASS are set in env, they will be used. Otherwise add a safe demo account.
+const demoEmail = process.env.ADMIN_USER || 'admin@example.com';
+const demoPass = process.env.ADMIN_PASS || 'Admin#2026';
+if (!users[demoEmail]) {
+    users[demoEmail] = { password: demoPass, role: 'Admin', name: 'Demo Admin' };
+}
+
+
 // POST - Login (menghasilkan JWT)
 // Menangani GET ke /login dengan 405 untuk membantu debugging (Method Not Allowed)
 router.get('/login', (req, res) => {
@@ -28,7 +37,9 @@ router.get('/login', (req, res) => {
 
 router.post('/login', loginLimiter, async (req, res) => {
     try {
-        const { email, password } = req.body;
+        // Accept both 'email' and legacy 'username' field from frontend
+        const email = req.body.email || req.body.username;
+        const password = req.body.password;
         
         if (!email || !password) {
             return res.status(400).json({
@@ -37,8 +48,18 @@ router.post('/login', loginLimiter, async (req, res) => {
             });
         }
         
-        const user = users[email];
-        
+        let user = users[email];
+        // If not found in users, accept admin demo credentials from env or defaults (development convenience)
+        if (!user) {
+            const envDemoEmail = process.env.ADMIN_USER || 'admin@example.com';
+            const envDemoPass = process.env.ADMIN_PASS || 'Admin#2026';
+            if (email === envDemoEmail && password === envDemoPass) {
+                user = { password: envDemoPass, role: 'Admin', name: 'Demo Admin' };
+                // cache into users for consistency
+                users[email] = user;
+            }
+        }
+
         if (!user || user.password !== password) {
             return res.status(401).json({
                 status: 'error',

@@ -46,7 +46,19 @@ if (!creds || !creds.client_email || !creds.private_key) {
 const app = express();
 
 // Middleware
-app.use(cors());
+// Configure CORS dynamically via ALLOWED_ORIGINS env var (comma-separated). Defaults to localhost and Netlify preview.
+const allowedOriginsEnv = process.env.ALLOWED_ORIGINS || 'http://localhost:3000,https://hilarious-cascaron-65e0f7.netlify.app';
+const allowedOrigins = allowedOriginsEnv.split(',').map(s => s.trim()).filter(Boolean);
+console.log('CORS allowed origins:', allowedOrigins);
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (e.g., curl, mobile apps)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('CORS policy: Origin not allowed'));
+  },
+  credentials: true
+}));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 

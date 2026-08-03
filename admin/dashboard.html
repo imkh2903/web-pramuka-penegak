@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Dashboard</title>
+  <style>
+    body{font-family:Segoe UI, Roboto, Arial;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#f3f6fb}
+    .card{background:#fff;padding:20px;border-radius:10px;box-shadow:0 6px 20px rgba(2,6,23,0.08);max-width:720px;width:100%}
+    button{padding:8px 12px;border-radius:6px;border:0;background:#c62828;color:#fff;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Dashboard Admin</h1>
+    <p id="status">Memuat...</p>
+    <p>
+      <button id="logout">Logout</button>
+    </p>
+  </div>
+  <script>
+    const token = localStorage.getItem('admin_token');
+    const status = document.getElementById('status');
+    if(!token){
+      // Tidak ada token — kembalikan ke login
+      window.location.href = 'index.html';
+    } else {
+      status.textContent = 'Anda masuk sebagai admin. Token tersimpan di localStorage.';
+    }
+    document.getElementById('logout').addEventListener('click', ()=>{
+      localStorage.removeItem('admin_token');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

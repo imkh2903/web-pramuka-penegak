@@ -1,0 +1,14 @@
+/* Simple responsive admin login styles */
+:root{--bg:#f5f7fa;--card:#fff;--accent:#0057b7;--danger:#c0392b}
+*{box-sizing:border-box;font-family:Segoe UI, Roboto, Arial, sans-serif}
+body{margin:0;background:linear-gradient(180deg,var(--bg),#e9eef6);height:100vh;display:flex;align-items:center;justify-content:center}
+.login-container{width:100%;max-width:420px;padding:24px}
+.login-form{background:var(--card);padding:28px;border-radius:8px;box-shadow:0 8px 24px rgba(15,23,42,0.08)}
+.login-form h1{margin:0 0 16px;font-size:20px;color:#0b2546}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13px;color:#334155;margin-bottom:6px}
+.field input{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:6px;font-size:14px}
+.btn{width:100%;padding:10px 12px;border:0;border-radius:6px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+.btn:active{transform:translateY(1px)}
+.error{color:var(--danger);font-size:13px;min-height:18px;margin-bottom:8px}
+@media (max-width:420px){.login-container{padding:12px}.login-form{padding:18px}}

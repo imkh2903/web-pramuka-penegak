@@ -1,0 +1,24 @@
+[build]
+  publish = "."
+
+# Redirect root to admin login
+[[redirects]]
+  from = "/"
+  to = "/admin/"
+  status = 302
+  force = true
+
+# Ensure /admin is served as folder index
+[[redirects]]
+  from = "/admin"
+  to = "/admin/"
+  status = 301
+  force = true
+
+# Proxy API calls to Railway backend to avoid CORS issues.
+# Adjust the URL below if your Railway app URL changes.
+[[redirects]]
+  from = "/api/*"
+  to = "https://web-pramuka-penegak-production.up.railway.app/api/:splat"
+  status = 200
+  force = false
