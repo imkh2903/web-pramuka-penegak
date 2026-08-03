@@ -65,10 +65,40 @@ class GoogleSheetsService {
             const auth = await this.initAuth();
             const sheets = google.sheets({ version: 'v4', auth });
             
-            const response = await sheets.spreadsheets.values.get({
-                spreadsheetId: sheetId,
-                range: `'${sheetName}'!A:Z`,
-            });
+            // First attempt: use requested sheetName
+            let response;
+            try {
+                response = await sheets.spreadsheets.values.get({
+                    spreadsheetId: sheetId,
+                    range: `'${sheetName}'!A:Z`,
+                });
+            } catch (err) {
+                // If range parse error, try to auto-detect sheet title (case-insensitive) and retry
+                const msg = err && (err.message || err.toString());
+                if (msg && msg.toLowerCase().includes('unable to parse range')) {
+                    console.warn(`Requested sheet '${sheetName}' not found in spreadsheet; attempting to detect matching sheet title...`);
+                    const meta = await sheets.spreadsheets.get({ spreadsheetId: sheetId, fields: 'sheets.properties.title' });
+                    const titles = (meta.data.sheets || []).map(s => s.properties && s.properties.title).filter(Boolean);
+
+                    // Try exact case-insensitive match, then includes
+                    let candidate = titles.find(t => t.toLowerCase() === sheetName.toLowerCase());
+                    if (!candidate) candidate = titles.find(t => t.toLowerCase().includes(sheetName.toLowerCase()));
+                    if (!candidate) candidate = titles.find(t => sheetName.toLowerCase().includes(t.toLowerCase()));
+
+                    if (candidate) {
+                        console.log(`Auto-detected sheet title: '${candidate}' — retrying read`);
+                        response = await sheets.spreadsheets.values.get({ spreadsheetId: sheetId, range: `'${candidate}'!A:Z` });
+                    } else if (titles.length > 0) {
+                        // fallback to first sheet
+                        console.log(`No matching sheet title found. Falling back to first sheet: '${titles[0]}'`);
+                        response = await sheets.spreadsheets.values.get({ spreadsheetId: sheetId, range: `'${titles[0]}'!A:Z` });
+                    } else {
+                        throw err; // rethrow original
+                    }
+                } else {
+                    throw err;
+                }
+            }
 
             const rows = response.data.values;
             if (!rows || rows.length === 0) {
