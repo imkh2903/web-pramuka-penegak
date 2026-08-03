@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi & Keuangan | Ambalan Pramuka Penegak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+            <img src="assets/img/logogdp.jpeg" alt="Logo Gudep" width="40" height="50" style="margin-right: 10px; vertical-align: middle;">
+
+
+                <span>Ambalan Penegak</span>
+            </a>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="keanggotaan.html">Keanggotaan & SKU</a></li>
+                    <li><a href="administrasi.html" class="active">Administrasi & Keuangan</a></li>
+                    <li><a href="kegiatan.html">Kegiatan & Inventaris</a></li>
+                    <li><a href="publikasi.html">Publikasi & Karya</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Manajemen Organisasi & Dewan Ambalan</h1>
+            <p>Pusat kontrol Kerani (persuratan), Juru Uang (kas transparan & QRIS), dan Buku Adat Pemangku Adat.</p>
+        </div>
+    </section>
+
+    <main class="container page-content">
+        <!-- Tab Navigation -->
+        <div class="tab-nav mb-4">
+            <button class="tab-btn active" onclick="switchTab(event, 'keraniTab')">Kerani Tools (Persuratan)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'juruUangTab')">Juru Uang (Kas & Keuangan)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'pemangkuTab')">Pemangku Adat & Sandi</button>
+        </div>
+
+        <!-- TAB 1: Kerani Tools (Persuratan & Repository) -->
+        <div id="keraniTab" class="tab-content active">
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-file-pen"></i> Generator Nomor Surat Masuk & Keluar Otomatis</h3>
+                    <form id="suratForm" class="styled-form">
+                        <div class="form-group">
+                            <label for="jenisSurat">Jenis Surat</label>
+                            <select id="jenisSurat" required>
+                                <option value="Surat Keluar">Surat Keluar</option>
+                                <option value="Surat Masuk">Surat Masuk</option>
+                                <option value="Proposal Kegiatan">Proposal Kegiatan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="perihalSurat">Perihal / Keterangan</label>
+                            <input type="text" id="perihalSurat" required placeholder="Contoh: Permohonan Izin Tempat Perkemahan">
+                        </div>
+                        <div class="form-group">
+                            <label for="tujuanSurat">Tujuan / Asal Instansi</label>
+                            <input type="text" id="tujuanSurat" required placeholder="Contoh: Kwarcab / Mabigus">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fa-solid fa-barcode"></i> Generate Nomor Agenda Otomatis
+                        </button>
+                    </form>
+                    <div id="suratAlert" class="alert hidden mt-3">
+                        <i class="fa-solid fa-check"></i> Nomor Agenda Berhasil Dibuat: <strong>042/AMB-PNG/VI/2026</strong>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-folder-open"></i> Repository Arsip & Template Surat</h3>
+                    <p class="text-muted mb-3">Unduh template standar Google Docs / PDF resmi Ambalan.</p>
+                    <div class="admin-grid-inner">
+                        <div class="doc-mini-card">
+                            <i class="fa-solid fa-file-word text-primary"></i>
+                            <div>
+                                <h4>Template Proposal</h4>
+                                <a href="https://docs.google.com" target="_blank" class="text-sm">Buka Google Docs</a>
+                            </div>
+                        </div>
+                        <div class="doc-mini-card">
+                            <i class="fa-solid fa-file-pdf text-danger"></i>
+                            <div>
+                                <h4>Format Surat Mandat</h4>
+                                <a href="https://drive.google.com" target="_blank" class="text-sm">Unduh PDF</a>
+                            </div>
+                        </div>
+                        <div class="doc-mini-card">
+                            <i class="fa-solid fa-file-excel text-success"></i>
+                            <div>
+                                <h4>Buku Agenda Kas</h4>
+                                <a href="https://docs.google.com" target="_blank" class="text-sm">Buka Sheets</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Juru Uang (Kas Transparan & QRIS) -->
+        <div id="juruUangTab" class="tab-content">
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-wallet"></i> Rekapitulasi Kas & Pembayaran Digital</h3>
+                    <div class="stats-box mb-4">
+                        <div class="stat-item">
+                            <span>Total Kas Masuk</span>
+                            <h2 class="text-success">Rp 1.450.000</h2>
+                        </div>
+                        <div class="stat-item">
+                            <span>Kas Keluar</span>
+                            <h2 class="text-danger">Rp 350.000</h2>
+                        </div>
+                        <div class="stat-item">
+                            <span>Saldo Akhir</span>
+                            <h2 class="text-primary">Rp 1.100.000</h2>
+                        </div>
+                    </div>
+                    <div class="text-center p-3 bg-light rounded">
+                        <p class="font-weight-bold mb-2"><i class="fa-solid fa-qrcode"></i> Scan QRIS Ambalan untuk Iuran Rutin</p>
+                        <div class="qris-box mb-2">[Simulasi Barcode QRIS Gudep Penegak]</div>
+                        <span class="text-muted text-sm">Valid untuk pembayaran via BCA, Mandiri, GoPay, OVO, Dana</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-list-check"></i> Riwayat Pembayaran Iuran Sangga</h3>
+                    <div class="sheet-table-wrapper">
+                        <table class="live-table">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama / Sangga</th>
+                                    <th>Nominal</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01 Jun 2026</td>
+                                    <td>Sangga Pendobrak</td>
+                                    <td>Rp 50.000</td>
+                                    <td><span class="badge-status success">Lunas</span></td>
+                                </tr>
+                                <tr>
+                                    <td>28 May 2026</td>
+                                    <td>Sangga Perintis</td>
+                                    <td>Rp 45.000</td>
+                                    <td><span class="badge-status success">Lunas</span></td>
+                                </tr>
+                                <tr>
+                                    <td>20 May 2026</td>
+                                    <td>Sangga Penegas</td>
+                                    <td>Rp 50.000</td>
+                                    <td><span class="badge-status success">Lunas</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Pemangku Adat & Sandi Ambalan -->
+        <div id="pemangkuTab" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-feather"></i> Buku Adat, Sandi Ambalan, & Tata Tertib Internal</h3>
+                <p class="text-muted mb-4">Dokumentasi resmi adat istiadat ambalan dan sandi rahasia yang dijunjung tinggi oleh seluruh warga ambalan.</p>
+                <div class="adat-grid">
+                    <div class="adat-item">
+                        <h4><i class="fa-solid fa-bookmark"></i> Sandi Ambalan</h4>
+                        <p>Larik puitis penyemangat jiwa ksatria penegak yang dibacakan setiap upacara pembukaan dan penutupan latihan.</p>
+                    </div>
+                    <div class="adat-item">
+                        <h4><i class="fa-solid fa-gavel"></i> Hukum & Aturan Internal</h4>
+                        <p>Pedoman sanksi mendidik dan tata krama pergaulan antar sesama anggota Penegak di lingkungan gugusdepan.</p>
+                    </div>
+                    <div class="adat-item">
+                        <h4><i class="fa-solid fa-shield-halved"></i> Pusaka Ambalan</h4>
+                        <p>Simbol kehormatan, panji ambalan, dan sejarah singkat penamaan ambalan penegak.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 Ambalan Pramuka Penegak. Modul Dewan Ambalan & Keuangan.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

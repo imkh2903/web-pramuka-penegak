@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keanggotaan & SKU | Ambalan Pramuka Penegak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+            <img src="assets/img/logogdp.jpeg" alt="Logo Gudep" width="40" height="50" style="margin-right: 10px; vertical-align: middle;">
+
+
+                <span>Ambalan Penegak</span>
+            </a>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="keanggotaan.html" class="active">Keanggotaan & SKU</a></li>
+                    <li><a href="administrasi.html">Administrasi & Keuangan</a></li>
+                    <li><a href="kegiatan.html">Kegiatan & Inventaris</a></li>
+                    <li><a href="publikasi.html">Publikasi & Karya</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Modul Keanggotaan & Digital Logbook SKU/SKK</h1>
+            <p>Tracking tingkat kecakapan, pengelompokan Sangga, unggah bukti portofolio tugas, dan presensi QR Code.</p>
+        </div>
+    </section>
+
+    <main class="container page-content">
+        <!-- Tab Navigation for Keanggotaan Sub-features -->
+        <div class="tab-nav mb-4">
+            <button class="tab-btn active" onclick="switchTab(event, 'pendaftaranTab')">Pendaftaran & Database</button>
+            <button class="tab-btn" onclick="switchTab(event, 'skuLogbookTab')">E-Buku Saku & Logbook SKU</button>
+            <button class="tab-btn" onclick="switchTab(event, 'presensiTab')">Presensi QR Code</button>
+        </div>
+
+        <!-- TAB 1: Pendaftaran & Database Sangga -->
+        <div id="pendaftaranTab" class="tab-content active">
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-user-plus"></i> Formulir Pendaftaran Anggota (Sync Google Sheets)</h3>
+                    <form id="googleSheetForm" class="styled-form">
+                        <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap">
+                        </div>
+                        <div class="form-group">
+                            <label for="kelas">Kelas / Tingkat</label>
+                            <input type="text" id="kelas" name="kelas" required placeholder="Contoh: XI MIPA 1">
+                        </div>
+                        <div class="form-group">
+                            <label for="sangga">Pilihan Sangga</label>
+                            <select id="sangga" name="sangga" required>
+                                <option value="">-- Pilih Sangga --</option>
+                                <option value="Sangga Perintis">Sangga Perintis</option>
+                                <option value="Sangga Pencoba">Sangga Pencoba</option>
+                                <option value="Sangga Pendobrak">Sangga Pendobrak</option>
+                                <option value="Sangga Penegas">Sangga Penegas</option>
+                                <option value="Sangga Pelaksana">Sangga Pelaksana</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tingkat">Status Tingkat Awal</label>
+                            <select id="tingkat" name="tingkat" required>
+                                <option value="Tamu Ambalan">Tamu Ambalan</option>
+                                <option value="Calon Penegak">Calon Penegak</option>
+                                <option value="Penegak Bantara">Penegak Bantara</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="wa">Nomor WhatsApp Aktif</label>
+                            <input type="tel" id="wa" name="wa" required placeholder="08xxxxxxxxxx">
+                        </div>
+                        <button type="submit" id="submitBtn" class="btn btn-primary w-100">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim & Simpan ke Airtable/Sheets
+                        </button>
+                    </form>
+                    <div id="formAlert" class="alert hidden mt-3">
+                        <i class="fa-solid fa-circle-check"></i> Data berhasil dikirim dan tersimpan di database!
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-table-list"></i> Database Anggota & Status Tingkatan</h3>
+                    <p class="text-muted mb-3">Live view rekapitulasi anggota per Sangga dan status SKU terkini.</p>
+                    <div class="sheet-table-wrapper">
+                        <table class="live-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Sangga</th>
+                                    <th>Tingkat SKU</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="memberTableBody">
+                                <tr>
+                                    <td>Ahmad Fauzi</td>
+                                    <td>Pendobrak</td>
+                                    <td><span class="badge-sku bantara">Bantara</span></td>
+                                    <td><span class="badge-status success">Aktif</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Siti Rahma</td>
+                                    <td>Penegas</td>
+                                    <td><span class="badge-sku laksana">Laksana</span></td>
+                                    <td><span class="badge-status success">Aktif</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Budi Santoso</td>
+                                    <td>Perintis</td>
+                                    <td><span class="badge-sku calon">Calon Penegak</span></td>
+                                    <td><span class="badge-status pending">Ujian SKU</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="sheet-link-box">
+                        <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-sm btn-outline-dark">
+                            <i class="fa-solid fa-file-excel"></i> Buka Google Sheets Database Utama
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: E-Buku Saku & Logbook SKU/SKK -->
+        <div id="skuLogbookTab" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-book-open"></i> E-Buku Saku & Unggah Bukti Portofolio SKU/SKK</h3>
+                <p class="text-muted mb-4">Kirimkan dokumentasi foto/video/dokumen untuk pengujian poin SKU atau SKK kepada Pembina / Dewan Ambalan.</p>
+                <form id="skuUploadForm" class="styled-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="namaSiswa">Nama Penegak</label>
+                            <input type="text" id="namaSiswa" required placeholder="Nama lengkap Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="poinSku">Nomor / Poin SKU / SKK yang Diuji</label>
+                            <input type="text" id="poinSku" required placeholder="Contoh: SKU Bantara No. 12 (Agama Islam)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="deskripsiTugas">Deskripsi Pelaksanaan / Laporan Singkat</label>
+                        <textarea id="deskripsiTugas" rows="4" required placeholder="Jelaskan kegiatan pengamalan atau praktik yang telah dilakukan..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fileBukti">Unggah Bukti (Foto Kegiatan / Sertifikat / Dokumen PDF)</label>
+                        <input type="file" id="fileBukti" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Ajukan Portofolio untuk Approval Dewan Ambalan
+                    </button>
+                </form>
+                <div id="skuAlert" class="alert hidden mt-3">
+                    <i class="fa-solid fa-check-circle"></i> Berkas portofolio SKU berhasil diajukan dan menunggu verifikasi Pradana / Pembina!
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Presensi QR Code -->
+        <div id="presensiTab" class="tab-content">
+            <div class="card text-center py-5">
+                <h3><i class="fa-solid fa-qrcode"></i> Check-in Presensi Latihan Rutin</h3>
+                <p class="text-muted mb-4">Pindai QR Code di bawah menggunakan ponsel Anda saat memasuki area latihan ambalan.</p>
+                <div class="qr-placeholder mb-4">
+                    <i class="fa-solid fa-qrcode qr-icon"></i>
+                </div>
+                <p class="font-weight-bold mb-3">Status Sesi: <span class="badge-status success">Latihan Rutin Jumat Sore (Aktif)</span></p>
+                <button onclick="alert('Presensi berhasil dicatat ke Google Sheets Gudep!')" class="btn btn-primary">
+                    <i class="fa-solid fa-fingerprint"></i> Lakukan Check-In Manual
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 Ambalan Pramuka Penegak. Modul Keanggotaan & Digital Logbook.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

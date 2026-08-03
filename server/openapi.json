@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Pramuka Penegak Portal API",
+    "version": "1.0.0",
+    "description": "Dokumentasi API Pramuka Penegak Portal dengan JWT Auth"
+  },
+  "servers": [
+    { "url": "http://localhost:3000" }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT Token dari /api/auth/login"
+      }
+    }
+  },
+  "security": [
+    { "bearerAuth": [] }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "summary": "Login dan dapatkan JWT token",
+        "tags": ["Auth"],
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "admin@pramuka.id" },
+                  "password": { "type": "string", "example": "admin123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login berhasil, return token" }
+        }
+      }
+    },
+    "/api/auth/verify": {
+      "get": {
+        "summary": "Verifikasi token JWT",
+        "tags": ["Auth"]
+      }
+    },
+    "/api/auth/profile": {
+      "get": {
+        "summary": "Ambil profil user dari token",
+        "tags": ["Auth"]
+      }
+    },
+    "/api/auth/demo-users": {
+      "get": {
+        "summary": "List demo credentials (development only)",
+        "tags": ["Auth"],
+        "security": []
+      }
+    },
+    "/api/members": {
+      "get": {
+        "summary": "Ambil daftar anggota",
+        "tags": ["Members"]
+      },
+      "post": {
+        "summary": "Tambah anggota (role: Admin/Kerani)",
+        "tags": ["Members"]
+      }
+    },
+    "/api/finances": {
+      "get": {
+        "summary": "Lihat laporan keuangan",
+        "tags": ["Finances"]
+      },
+      "post": {
+        "summary": "Catat transaksi (role: Admin/Juru Uang)",
+        "tags": ["Finances"]
+      }
+    },
+    "/api/activities": {
+      "get": {
+        "summary": "Daftar kegiatan",
+        "tags": ["Activities"]
+      },
+      "post": {
+        "summary": "Buat kegiatan (role: Admin/Pembina)",
+        "tags": ["Activities"]
+      }
+    },
+    "/api/publications": {
+      "get": {
+        "summary": "List publikasi",
+        "tags": ["Publications"]
+      }
+    },
+    "/api/upload/bukti-tugas": {
+      "post": {
+        "summary": "Upload bukti tugas (role: Admin/Juru Uang/Pembina)",
+        "tags": ["Upload"]
+      }
+    }
+  }
+}

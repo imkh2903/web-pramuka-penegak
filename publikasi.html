@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publikasi & Karya | Ambalan Pramuka Penegak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+            <img src="assets/img/logogdp.jpeg" alt="Logo Gudep" width="40" height="50" style="margin-right: 10px; vertical-align: middle;">
+
+
+                <span>Ambalan Penegak</span>
+            </a>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="keanggotaan.html">Keanggotaan & SKU</a></li>
+                    <li><a href="administrasi.html">Administrasi & Keuangan</a></li>
+                    <li><a href="kegiatan.html">Kegiatan & Inventaris</a></li>
+                    <li><a href="publikasi.html" class="active">Publikasi & Karya</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Media Publikasi & Kreativitas Anggota</h1>
+            <p>Ruang buletin karya Penegak, galeri Google Drive/YouTube, dan peta proyek sosial tiap Sangga.</p>
+        </div>
+    </section>
+
+    <main class="container page-content">
+        <!-- Tab Navigation -->
+        <div class="tab-nav mb-4">
+            <button class="tab-btn active" onclick="switchTab(event, 'karyaTab')">Karya Penegak (Blog & Buletin)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'galeriTab')">Galeri Google Drive & YouTube</button>
+            <button class="tab-btn" onclick="switchTab(event, 'petaSanggaTab')">Peta Potensi Sangga</button>
+        </div>
+
+        <!-- TAB 1: Karya Penegak (Blog & Buletin) -->
+        <div id="karyaTab" class="tab-content active">
+            <div class="blog-grid">
+                <div class="card blog-card">
+                    <div class="blog-tag">Pioneering</div>
+                    <h3>Teknik Dasar Menara Pandang Tali Temali untuk Perkemahan</h3>
+                    <p class="text-muted">Panduan praktis pembuatan simpul jangkar dan ikatan tiang gawang untuk pendirian pioneering kokoh...</p>
+                    <div class="blog-meta mt-3">
+                        <span><i class="fa-solid fa-user"></i> Sangga Pendobrak</span>
+                        <span><i class="fa-solid fa-calendar"></i> 2 Jun 2026</span>
+                    </div>
+                </div>
+                <div class="card blog-card">
+                    <div class="blog-tag">Bakti Masyarakat</div>
+                    <h3>Aksi Bersih Sungai & Penanaman 100 Pohon oleh Ambalan</h3>
+                    <p class="text-muted">Laporan bakti lingkungan dalam rangka memperingati Hari Lingkungan Hidup bersama warga sekitar pangkalan...</p>
+                    <div class="blog-meta mt-3">
+                        <span><i class="fa-solid fa-user"></i> Sangga Penegas</span>
+                        <span><i class="fa-solid fa-calendar"></i> 28 May 2026</span>
+                    </div>
+                </div>
+                <div class="card blog-card">
+                    <div class="blog-tag">Survival & Navigasi</div>
+                    <h3>Tips Membaca Kompas & Peta Topografi di Hutan Tropis</h3>
+                    <p class="text-muted">Mengenal sudut azimut, back azimut, dan cara menentukan posisi koordinat saat berkemah di alam bebas...</p>
+                    <div class="blog-meta mt-3">
+                        <span><i class="fa-solid fa-user"></i> Sangga Perintis</span>
+                        <span><i class="fa-solid fa-calendar"></i> 20 May 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Galeri Dokumentasi -->
+        <div id="galeriTab" class="tab-content">
+            <div class="card text-center mb-4">
+                <h3><i class="fa-brands fa-google-drive"></i> Arsip Galeri Foto & Video Ambalan</h3>
+                <p class="text-muted mb-3">Seluruh dokumentasi resolusi tinggi disimpan secara rapi di Google Drive & YouTube Channel Gudep.</p>
+                <div class="gallery-grid mb-3">
+                    <div class="gallery-placeholder"><i class="fa-solid fa-image"></i> Perkemahan Pelantikan Bantara</div>
+                    <div class="gallery-placeholder"><i class="fa-solid fa-image"></i> Latihan Rutin Pioneering</div>
+                    <div class="gallery-placeholder"><i class="fa-solid fa-image"></i> Kegiatan Bakti Sosial</div>
+                </div>
+                <a href="https://drive.google.com" target="_blank" class="btn btn-outline-dark">
+                    <i class="fa-solid fa-folder-open"></i> Buka Folder Google Drive Dokumentasi Lengkap
+                </a>
+            </div>
+        </div>
+
+        <!-- TAB 3: Peta Potensi Sangga -->
+        <div id="petaSanggaTab" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-map-location-dot"></i> Etalase Proyek Sosial & Potensi Tiap Sangga</h3>
+                <p class="text-muted mb-4">Menampilkan inovasi dan proyek yang sedang berjalan dari masing-masing Sangga di Ambalan.</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>Sangga Perintis</h4>
+                        <p class="text-muted">Proyek Unggulan: Pembuatan Bank Sampah Digital Pangkalan Sekolah.</p>
+                        <span class="badge-status success mt-2">Tahap Implementasi</span>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Sangga Pendobrak</h4>
+                        <p class="text-muted">Proyek Unggulan: Pembuatan Web Profil UMKM Binaan Desa Wisata.</p>
+                        <span class="badge-status success mt-2">Tahap Implementasi</span>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Sangga Penegas</h4>
+                        <p class="text-muted">Proyek Unggulan: Taman Baca Pramuka & Pojok Literasi Membaca.</p>
+                        <span class="badge-status success mt-2">Selesai</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 Ambalan Pramuka Penegak. Modul Publikasi & Kreativitas.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kegiatan & Inventaris | Ambalan Pramuka Penegak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+            <img src="assets/img/logogdp.jpeg" alt="Logo Gudep" width="40" height="50" style="margin-right: 10px; vertical-align: middle;">
+
+
+                <span>Ambalan Penegak</span>
+            </a>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="keanggotaan.html">Keanggotaan & SKU</a></li>
+                    <li><a href="administrasi.html">Administrasi & Keuangan</a></li>
+                    <li><a href="kegiatan.html" class="active">Kegiatan & Inventaris</a></li>
+                    <li><a href="publikasi.html">Publikasi & Karya</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Manajemen Kegiatan & Inventaris Logistik</h1>
+            <p>Pusat RSVP pendaftaran event besar, unduh lembar izin orang tua, dan peminjaman barang gudep.</p>
+        </div>
+    </section>
+
+    <main class="container page-content">
+        <!-- Tab Navigation -->
+        <div class="tab-nav mb-4">
+            <button class="tab-btn active" onclick="switchTab(event, 'rsvpTab')">RSVP & Pendaftaran Kegiatan</button>
+            <button class="tab-btn" onclick="switchTab(event, 'inventarisTab')">Manajemen Inventaris Gudep</button>
+        </div>
+
+        <!-- TAB 1: RSVP & Pendaftaran Kegiatan -->
+        <div id="rsvpTab" class="tab-content active">
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-calendar-star"></i> Pendaftaran Kegiatan Terdekat: Perkemahan Bakti</h3>
+                    <p class="text-muted mb-3">Isi formulir RSVP untuk konfirmasi keikutsertaan Anda dan unduh surat izin orang tua.</p>
+                    <form id="rsvpForm" class="styled-form">
+                        <div class="form-group">
+                            <label for="namaRsvp">Nama Lengkap</label>
+                            <input type="text" id="namaRsvp" required placeholder="Nama lengkap">
+                        </div>
+                        <div class="form-group">
+                            <label for="sanggaRsvp">Sangga</label>
+                            <input type="text" id="sanggaRsvp" required placeholder="Asal Sangga">
+                        </div>
+                        <div class="form-group">
+                            <label for="konfirmasi">Konfirmasi Kehadiran</label>
+                            <select id="konfirmasi" required>
+                                <option value="Hadir">Hadir & Siap Ikut</option>
+                                <option value="Berhalangan">Berhalangan Hadir (Surat Menyusul)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fa-solid fa-check-to-slot"></i> Kirim RSVP & Unduh Lembar Izin
+                        </button>
+                    </form>
+                    <div id="rsvpAlert" class="alert hidden mt-3">
+                        <i class="fa-solid fa-file-arrow-down"></i> RSVP berhasil dicatat! <a href="#" class="font-weight-bold">Klik di sini untuk mengunduh Lembar Izin Orang Tua (PDF)</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-list"></i> Daftar Agenda Kegiatan Besar Ambalan</h3>
+                    <ul class="event-list">
+                        <li>
+                            <div class="event-date"><span>15</span>Jun</div>
+                            <div>
+                                <h4>Pelantikan Penegak Bantara</h4>
+                                <p class="text-muted text-sm">Bumi Perkemahan setempat | Pukul 08.00 WIB</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="event-date"><span>25</span>Jul</div>
+                            <div>
+                                <h4>Gladi Widya Tingkat Cabang</h4>
+                                <p class="text-muted text-sm">Pusdiklatcab | 3 Hari 2 Malam</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="event-date"><span>17</span>Aug</div>
+                            <div>
+                                <h4>Ulang Tahun Pramuka & Bakti Sosial</h4>
+                                <p class="text-muted text-sm">Pangkalan Gudep | Bakti Masyarakat</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Manajemen Inventaris Logistik Gudep -->
+        <div id="inventarisTab" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-boxes-stacked"></i> Sistem Peminjaman Barang & Inventaris Gudep</h3>
+                <p class="text-muted mb-4">Formulir peminjaman alat ambalan (tenda, kompas, bendera semaphore, alat pioneering, dll.).</p>
+                
+                <div class="sheet-table-wrapper mb-4">
+                    <table class="live-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Barang</th>
+                                <th>Jumlah Tersedia</th>
+                                <th>Penanggung Jawab</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tenda Dome Kapasitas 4</td>
+                                <td>6 Unit</td>
+                                <td>Sangga Perintis</td>
+                                <td><span class="badge-status success">Tersedia</span></td>
+                            </tr>
+                            <tr>
+                                <td>Kompas Silva</td>
+                                <td>15 Pcs</td>
+                                <td>Sangga Pendobrak</td>
+                                <td><span class="badge-status pending">Dipinjam</span></td>
+                            </tr>
+                            <tr>
+                                <td>Tongkat Pramuka 160cm</td>
+                                <td>40 Batang</td>
+                                <td>Gudep Utama</td>
+                                <td><span class="badge-status success">Tersedia</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <form id="pinjamForm" class="styled-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="peminjam">Nama Peminjam / Sangga</label>
+                            <input type="text" id="peminjam" required placeholder="Contoh: Sangga Penegas">
+                        </div>
+                        <div class="form-group">
+                            <label for="namaBarang">Nama Barang & Jumlah</label>
+                            <input type="text" id="namaBarang" required placeholder="Contoh: Tenda Dome (2 Unit)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tglKembali">Rencana Tanggal Pengembalian</label>
+                        <input type="date" id="tglKembali" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-handshake"></i> Ajukan Peminjaman Barang
+                    </button>
+                </form>
+                <div id="pinjamAlert" class="alert hidden mt-3">
+                    <i class="fa-solid fa-check"></i> Pengajuan peminjaman berhasil dicatat dan menunggu persetujuan Juru Barang / Pradana!
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 Ambalan Pramuka Penegak. Modul Kegiatan & Inventaris.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
