@@ -57,6 +57,10 @@ class GoogleDriveService {
      */
     async uploadFile(filePath, fileName, folderId) {
         try {
+            if (!folderId) {
+                throw new Error('Missing required parameter: folderId. Pastikan GOOGLE_DRIVE_* folder env variable diset (e.g. GOOGLE_DRIVE_GALERI_FOLDER)');
+            }
+
             const auth = await this.initAuth();
             const drive = google.drive({ version: 'v3', auth });
 
@@ -80,7 +84,7 @@ class GoogleDriveService {
             console.log(`✅ File ${fileName} berhasil diupload ke Drive`);
             return response.data;
         } catch (error) {
-            console.error('Error uploading file:', error);
+            console.error('Error uploading file:', error && (error.stack || error.message) || error);
             throw error;
         }
     }
@@ -90,6 +94,8 @@ class GoogleDriveService {
      */
     async downloadFile(fileId, outputPath) {
         try {
+            if (!fileId) throw new Error('Missing required parameter: fileId');
+
             const auth = await this.initAuth();
             const drive = google.drive({ version: 'v3', auth });
 
@@ -117,7 +123,7 @@ class GoogleDriveService {
                 );
             });
         } catch (error) {
-            console.error('Error downloading file:', error);
+            console.error('Error downloading file:', error && (error.stack || error.message) || error);
             throw error;
         }
     }
@@ -127,6 +133,10 @@ class GoogleDriveService {
      */
     async listFilesInFolder(folderId) {
         try {
+            if (!folderId) {
+                throw new Error('Missing required parameter: folderId. Pastikan GOOGLE_DRIVE_GALERI_FOLDER (atau folder yang relevan) diset di environment');
+            }
+
             const auth = await this.initAuth();
             const drive = google.drive({ version: 'v3', auth });
 
@@ -139,7 +149,7 @@ class GoogleDriveService {
 
             return response.data.files || [];
         } catch (error) {
-            console.error('Error listing files:', error);
+            console.error('Error listing files:', error && (error.stack || error.message) || error);
             throw error;
         }
     }

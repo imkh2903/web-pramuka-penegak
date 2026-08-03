@@ -11,7 +11,19 @@ const googleDriveService = require('../services/googleDriveService');
 // GET - Ambil semua publikasi
 router.get('/', async (req, res) => {
     try {
-        const sheetId = process.env.GOOGLE_SHEET_PUBLICATIONS_ID;
+        // Prefer specific publications sheet id, fallback to members sheet id if not set
+        let sheetId = process.env.GOOGLE_SHEET_PUBLICATIONS_ID || process.env.GOOGLE_SHEET_MEMBERS_ID;
+        if (!sheetId) {
+            return res.status(500).json({
+                status: 'error',
+                message: 'GOOGLE_SHEET_PUBLICATIONS_ID atau GOOGLE_SHEET_MEMBERS_ID belum diset di environment. Set salah satu untuk membaca data publikasi.'
+            });
+        }
+
+        if (!process.env.GOOGLE_SHEET_PUBLICATIONS_ID && process.env.GOOGLE_SHEET_MEMBERS_ID) {
+            console.warn('WARNING: GOOGLE_SHEET_PUBLICATIONS_ID tidak ditemukan — menggunakan GOOGLE_SHEET_MEMBERS_ID sebagai fallback');
+        }
+
         const data = await googleSheetsService.getSheetData(sheetId, 'Publikasi');
         
         res.json({
@@ -84,11 +96,15 @@ router.get('/blog/latest', async (req, res) => {
 router.get('/gallery', async (req, res) => {
     try {
         const folderId = process.env.GOOGLE_DRIVE_GALERI_FOLDER;
+        if (!folderId) {
+            return res.status(500).json({ status: 'error', message: 'GOOGLE_DRIVE_GALERI_FOLDER belum diset di environment' });
+        }
+
         const files = await googleDriveService.listFilesInFolder(folderId);
         
         // Filter hanya file gambar
         const images = files.filter(f => 
-            f.mimeType.startsWith('image/')
+            f.mimeType && f.mimeType.startsWith('image/')
         );
         
         res.json({

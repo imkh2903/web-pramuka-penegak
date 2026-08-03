@@ -58,6 +58,10 @@ class GoogleSheetsService {
      */
     async getSheetData(sheetId, sheetName = 'Sheet1') {
         try {
+            if (!sheetId) {
+                throw new Error('Missing required parameter: spreadsheetId (sheetId). Pastikan GOOGLE_SHEET_* environment variable diset.');
+            }
+
             const auth = await this.initAuth();
             const sheets = google.sheets({ version: 'v4', auth });
             
@@ -84,7 +88,7 @@ class GoogleSheetsService {
 
             return data;
         } catch (error) {
-            console.error('Error mengambil data sheet:', error);
+            console.error('Error mengambil data sheet:', error && (error.stack || error.message) || error);
             throw error;
         }
     }
@@ -94,6 +98,10 @@ class GoogleSheetsService {
      */
     async appendSheetData(sheetId, sheetName = 'Sheet1', values = []) {
         try {
+            if (!sheetId) {
+                throw new Error('Missing required parameter: spreadsheetId (sheetId). Pastikan GOOGLE_SHEET_* environment variable diset.');
+            }
+
             const auth = await this.initAuth();
             const sheets = google.sheets({ version: 'v4', auth });
 
@@ -109,7 +117,7 @@ class GoogleSheetsService {
             console.log(`✅ Data berhasil ditambahkan ke ${sheetName}`);
             return response.data;
         } catch (error) {
-            console.error('Error menambah data ke sheet:', error);
+            console.error('Error menambah data ke sheet:', error && (error.stack || error.message) || error);
             throw error;
         }
     }
@@ -119,6 +127,10 @@ class GoogleSheetsService {
      */
     async updateSheetData(sheetId, sheetName = 'Sheet1', rowIndex = 2, values = []) {
         try {
+            if (!sheetId) {
+                throw new Error('Missing required parameter: spreadsheetId (sheetId). Pastikan GOOGLE_SHEET_* environment variable diset.');
+            }
+
             const auth = await this.initAuth();
             const sheets = google.sheets({ version: 'v4', auth });
 
@@ -134,7 +146,7 @@ class GoogleSheetsService {
             console.log(`✅ Data di baris ${rowIndex} berhasil diperbarui`);
             return response.data;
         } catch (error) {
-            console.error('Error mengupdate data sheet:', error);
+            console.error('Error mengupdate data sheet:', error && (error.stack || error.message) || error);
             throw error;
         }
     }

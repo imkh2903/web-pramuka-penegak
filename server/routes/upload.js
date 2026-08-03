@@ -40,6 +40,12 @@ router.post('/bukti-tugas', requireRole(['Admin','Juru Uang','Pembina']), upload
         }
         
         const folderId = process.env.GOOGLE_DRIVE_BUKTI_FOLDER;
+        if (!folderId) {
+            // Hapus temp file
+            fs.unlinkSync(req.file.path);
+            return res.status(500).json({ status: 'error', message: 'GOOGLE_DRIVE_BUKTI_FOLDER belum diset di environment' });
+        }
+
         const fileName = `${namaAnggota}_${jenisTugas}_${Date.now()}${path.extname(req.file.originalname)}`;
         
         // Upload ke Google Drive
@@ -89,6 +95,11 @@ router.post('/dokumen-resmi', requireRole(['Admin','Pembina']), upload.single('f
         }
         
         const folderId = process.env.GOOGLE_DRIVE_DOCS_FOLDER;
+        if (!folderId) {
+            fs.unlinkSync(req.file.path);
+            return res.status(500).json({ status: 'error', message: 'GOOGLE_DRIVE_DOCS_FOLDER belum diset di environment' });
+        }
+
         const fileName = namaFile || req.file.originalname;
         
         const result = await googleDriveService.uploadFile(
@@ -135,6 +146,11 @@ router.post('/galeri', requireRole(['Admin','Pembina']), upload.single('file'), 
         }
         
         const folderId = process.env.GOOGLE_DRIVE_GALERI_FOLDER;
+        if (!folderId) {
+            fs.unlinkSync(req.file.path);
+            return res.status(500).json({ status: 'error', message: 'GOOGLE_DRIVE_GALERI_FOLDER belum diset di environment' });
+        }
+
         const fileName = judul || req.file.originalname;
         
         const result = await googleDriveService.uploadFile(
