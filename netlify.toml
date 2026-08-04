@@ -1,14 +1,15 @@
 [build]
   publish = "."
 
-# Redirect root to admin login
-[[redirects]]
-  from = "/"
-  to = "/admin/"
-  status = 302
-  force = true
+# Only redirect root to /admin in production to avoid redirect loops on preview deploys
+[context.production]
+  [[redirects]]
+    from = "/"
+    to = "/admin/"
+    status = 302
+    force = true
 
-# Ensure /admin is served as folder index
+# Ensure /admin is served as folder index for all contexts
 [[redirects]]
   from = "/admin"
   to = "/admin/"
