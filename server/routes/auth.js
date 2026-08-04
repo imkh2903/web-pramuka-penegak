@@ -175,15 +175,28 @@ router.get('/profile', (req, res) => {
 
 // GET - Demo users (untuk testing/development)
 router.get('/demo-users', (req, res) => {
+    // Build list from current users map
+    const list = Object.keys(users).map(email => ({
+        email,
+        password: users[email].password,
+        role: users[email].role,
+        name: users[email].name
+    }));
+
+    // If there's an ADMIN_USER in env that isn't in users yet, include it for clarity
+    const envDemoEmail = process.env.ADMIN_USER;
+    const envDemoPass = process.env.ADMIN_PASS;
+    if (envDemoEmail) {
+        const exists = list.find(u => u.email === envDemoEmail);
+        if (!exists) {
+            list.unshift({ email: envDemoEmail, password: envDemoPass || '(not set)', role: 'Admin (env)', name: 'Demo Admin (from ENV)' });
+        }
+    }
+
     res.json({
         status: 'success',
         message: 'Demo credentials untuk testing (HANYA untuk development)',
-        users: Object.keys(users).map(email => ({
-            email,
-            password: users[email].password,
-            role: users[email].role,
-            name: users[email].name
-        }))
+        users: list
     });
 });
 
